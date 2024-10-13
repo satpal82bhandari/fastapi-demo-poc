@@ -1,0 +1,136 @@
+This is a simple FastAPI-based project to manage items, with support for both database (PostgreSQL) and in-memory storage. The project allows creating, retrieving, and managing items. The storage type can be configured using environment variables.
+
+Features
+Create an item
+Get an item by its ID
+Get all items in memory (only for in-memory mode)
+Switch between database and in-memory storage
+Project Structure
+bash
+Copy code
+fastapi_app/
+├── app/
+│   ├── api/
+│   │   └── routes/
+│   │        └── items.py                # API routes for item management
+│   ├── controllers/
+│   │   └── item_controller.py           # Controller logic for handling items
+│   ├── core/
+│   │   └── config.py                    # Configuration settings (optional)
+│   ├── models/
+│   │   └── item.py                      # Database model for Item
+│   ├── persistence/
+│   │   └── base.py                      # Base class for SQLAlchemy models
+│   │   └── database.py                  # PostgreSQL database connection and queries
+│   │   └── memory.py                    # In-memory storage logic
+│   ├── schemas/
+│   │   └── item.py                      # Pydantic models (schemas)
+│   ├── services/
+│   │   └── item_db_service.py           # Services to interact with the database
+│   │   └── item_memory_service.py       # Services to interact with in-memory storage
+│   └── main.py                          # Main FastAPI app
+├── .env                                 # Environment variables
+└── README.md                            # Project documentation (this file)
+Requirements
+Python 3.10+
+FastAPI
+Uvicorn (for running the server)
+SQLAlchemy
+Pydantic
+PostgreSQL (for database mode)
+dotenv (for environment variable loading)
+Setup
+1. Clone the repository
+bash
+Copy code
+git clone https://github.com/your-username/fastapi-app.git
+cd fastapi-app
+2. Set up a Python virtual environment and install dependencies
+bash
+Copy code
+python -m venv my_env
+source my_env/bin/activate  # For Linux/Mac
+my_env\Scripts\activate     # For Windows
+
+pip install -r requirements.txt
+3. Configure the environment
+Create a .env file in the root directory:
+
+env
+Copy code
+# .env file
+STORAGE_TYPE="database"  # Set to "database" or "memory"
+DATABASE_URL=postgresql://<username>:<password>@localhost/<database_name>
+Set STORAGE_TYPE to database for PostgreSQL or memory for in-memory storage.
+If using the database mode, replace <username>, <password>, and <database_name> with your PostgreSQL credentials and database name.
+4. Set up the database
+If you're using PostgreSQL as the storage, ensure that the database is created:
+
+bash
+Copy code
+psql -U <username> -d <database_name> -h localhost -W
+# OR
+createdb <database_name>
+5. Running the Application
+Start the FastAPI application using Uvicorn:
+
+bash
+Copy code
+uvicorn app.main:app --reload
+You can now access the application at http://127.0.0.1:8000/.
+
+API Endpoints
+Create an Item
+POST /items/
+
+json
+Copy code
+Request Body:
+{
+    "name": "Sample Item",
+    "description": "This is a sample item"
+}
+
+Response:
+{
+    "id": 1,
+    "name": "Sample Item",
+    "description": "This is a sample item"
+}
+Get an Item by ID
+GET /items/{item_id}
+
+Response:
+
+json
+Copy code
+{
+    "id": 1,
+    "name": "Sample Item",
+    "description": "This is a sample item"
+}
+Get All Items (in-memory mode only)
+GET /items/memory/
+
+Response:
+
+json
+Copy code
+[
+    {
+        "id": 1,
+        "name": "Sample Item",
+        "description": "This is a sample item"
+    },
+    {
+        "id": 2,
+        "name": "Another Item",
+        "description": "This is another sample item"
+    }
+]
+Switching Between Database and In-Memory Storage
+Modify the STORAGE_TYPE variable in the .env file:
+
+For database storage: STORAGE_TYPE="database"
+For in-memory storage: STORAGE_TYPE="memory"
+Restart the server to apply changes.
