@@ -7,14 +7,16 @@ import os
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+STORAGE_TYPE = os.getenv("STORAGE_TYPE", "memory")  # Default to "memory" if not set
 
-if DATABASE_URL is None:
-    raise ValueError("DATABASE_URL is not set")
+if STORAGE_TYPE == "database":
+    DATABASE_URL = os.getenv("DATABASE_URL")
 
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    if DATABASE_URL is None:
+        raise ValueError("DATABASE_URL is not set")
 
+    engine = create_engine(DATABASE_URL)
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def add_item_to_db(item_data):
     db = SessionLocal()
@@ -35,4 +37,10 @@ def get_item_from_db(item_id):
     finally:
         db.close()
 
-
+def get_all_items_from_db():
+    db = SessionLocal()
+    try:
+        db_items = db.query(Item).all()
+        return db_items
+    finally:
+        db.close()
