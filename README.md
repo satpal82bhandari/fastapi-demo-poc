@@ -30,8 +30,8 @@ fastapi_app/
 ---------------------
 1. Clone the github repository
 ```
-git clone https://github.com/satpal82bhandari/fastapi-demo.git
-cd fastapi-app
+git clone https://github.com/satpal82bhandari/fastapi-demo-poc.git
+cd fastapi-app-poc
 ```
 
 2. Set up a Python virtual environment and install dependencies
@@ -39,9 +39,8 @@ cd fastapi-app
 python --version
 # or
 python3 --version
-conda search "^python$"
-conda create --name env_name python=3.10
-conda activate env_name
+python3 -m venv myenv
+source myenv/bin/activate
 pip install -r requirements.txt
 ```
 
