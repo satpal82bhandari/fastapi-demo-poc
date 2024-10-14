@@ -1,26 +1,20 @@
-import threading
+from app.schemas.item import ItemCreate, ItemResponse  # Import both schemas
 
-items_in_memory = []  # Simple list to store items
-id_counter = 1  # Global counter for item IDs
-lock = threading.Lock()
+# Simple in-memory storage for items
+in_memory_items = []
 
-def add_item_to_memory(item):
-    global id_counter
-    item_dict = item.dict()
-    with lock:
-        item_dict["id"] = id_counter
-        id_counter += 1
-        items_in_memory.append(item_dict)
-    return item_dict
+def add_item_to_memory(item_data: ItemCreate):
+    item_id = len(in_memory_items) + 1  # Generate a unique ID
+    # Create a new ItemResponse object with the id and other fields
+    item = ItemResponse(id=item_id, **item_data.dict())  # Pass item_data as a dictionary
+    in_memory_items.append(item)  # Store the item in memory
+    return item
 
 def get_item_from_memory(item_id):
-    with lock:
-        for item in items_in_memory:
-            if item["id"] == item_id:
-                return item
+    for item in in_memory_items:
+        if item.id == item_id:
+            return item
     return None
 
 def get_all_items_from_memory():
-    with lock:
-        return items_in_memory
-
+    return in_memory_items
