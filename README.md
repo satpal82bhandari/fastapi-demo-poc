@@ -44,13 +44,13 @@ source myenv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. Using PostgreSQL as the storage, ensure that the database is created
+3. Using PostgreSQL as the storage, ensure that the database is created (for database testing)
 ```
 psql -U <username> -d <database_name> -h localhost -W
 # OR
 createdb <database_name>
 ```
-4. Create a .env file in the root directory and copy format from .env.example
+4. Create a .env file in the root directory and copy format from .env.example (if not available)
 ```
 STORAGE_TYPE="database"    # Set to "database" or "memory"
 DATABASE_URL=postgresql://<username>:<password>@localhost/<database_name>
