@@ -31,7 +31,7 @@ fastapi_app/
 1. Clone the github repository
 ```
 git clone https://github.com/satpal82bhandari/fastapi-demo-poc.git
-cd fastapi-app-poc
+cd fastapi-demo-poc
 ```
 
 2. Set up a Python virtual environment and install dependencies
