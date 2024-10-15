@@ -34,10 +34,13 @@ git clone https://github.com/satpal82bhandari/fastapi-demo-poc.git
 cd fastapi-demo-poc
 ```
 
-2. Set up a Python virtual environment and install dependencies
+2. Set up a **Python3.10** virtual environment and install dependencies
 ```
+sudo apt update
+sudo apt install python3.10
+sudo apt install python3-venv
 python --version
-# or
+# or 
 python3 --version
 python3 -m venv myenv
 source myenv/bin/activate
