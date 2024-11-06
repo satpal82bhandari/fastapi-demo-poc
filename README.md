@@ -75,6 +75,7 @@ Request Body:
     "description": "This is a sample item"
 }
 ```
+
 #### Get an Item by ID (DB mode only)
 ```
 GET 
@@ -86,6 +87,13 @@ http://localhost:8000/items/{item_id}
 GET 
 http://localhost:8000/items/memory/
 ```
+
+#### Get All Items in Excel (in-memory mode only)
+```
+GET 
+http://localhost:8000/items/download/
+```
+
 ### Switching Between Database and In-Memory Storage
 Modify the STORAGE_TYPE variable in the .env file:
 
