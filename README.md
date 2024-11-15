@@ -35,7 +35,10 @@ cd fastapi-demo-poc
 ```
 
 2. Set up a **Python3.10** virtual environment and install dependencies
-@@ -42,65 +36,103 @@ sudo apt install python3-venv
+```
+sudo apt update
+sudo apt install python3.10
+sudo apt install python3-venv
 python --version
 # or 
 python3 --version
@@ -67,22 +70,26 @@ uvicorn app.main:app --reload
 ```
 POST 
 http://localhost:8000/items/
+
 Request Body:
 {
     "name": "Sample Item",
     "description": "This is a sample item"
 }
 ```
+
 #### Get an Item by ID (DB mode only)
 ```
 GET 
 http://localhost:8000/items/{item_id}
 ```
+
 #### Get All Items (in-memory mode only)
 ```
 GET 
 http://localhost:8000/items/memory/
 ```
+
 #### Get All Items in Excel (in-memory mode only)
 ```
 GET 
@@ -91,6 +98,9 @@ http://localhost:8000/items/download/
 
 ### Switching Between Database and In-Memory Storage
 Modify the STORAGE_TYPE variable in the .env file:
+
 **For database storage: STORAGE_TYPE="database"**
+
 **For in-memory storage: STORAGE_TYPE="memory"**
+
 Restart the server to apply changes.
